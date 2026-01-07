@@ -9,7 +9,7 @@
     <img src="assets/web.png" alt="Project Website" height="36">
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="#" target="_blank">
+  <a href="https://github.com/Nusrat-Prottasha/MonkeyJump" target="_blank">
     <img src="assets/github.png" alt="GitHub" height="36">
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
