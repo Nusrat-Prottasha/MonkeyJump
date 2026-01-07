@@ -1,7 +1,7 @@
 # 🐒 Monkey Jump: MoE-Style Specialization for Parameter-Efficient Fine-Tuning
 
 <p align="center">
-  <img src="assets/monkey_jump_logo.png" alt="Monkey Jump Logo" width="140"/>
+  <img src="assets/Money_Jump.png" alt="Monkey Jump Logo" width="140"/>
 </p>
 
 <p align="center">
