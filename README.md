@@ -44,27 +44,6 @@ Monkey Jump (MJ) achieves **MoE-style specialization** in parameter-efficient fi
 </p>
 
 ---
-
-## 📂 Repository Structure
-```
-code/
-├── src/
-│   ├── MJLoRA.py          # MonkeyJump-LoRA main implementation
-│   ├── MJAdaLoRA.py       # MonkeyJump-AdaLoRA variant
-│   ├── MJLoRAFA.py        # MonkeyJump-LoRA-FA variant
-│   ├── MJPropulsion.py    # MonkeyJump-Propulsion variant
-│   ├── MJtrainer.py       # Custom trainer with EMA scheduling
-│   └── kmneas.py          # K-means initialization utilities
-└── notebook_use/
-    ├── glue_monkey_sent.ipynb       # GLUE with sentence-wise routing
-    ├── glue_monkey_token.ipynb      # GLUE with token-wise routing
-    ├── MJLoRA_commonsense.ipynb     # Commonsense reasoning experiments
-    ├── MJLoRAFA_commonsense.ipynb   # LoRA-FA commonsense experiments
-    └── MJPropulsion_glue.ipynb      # Propulsion GLUE experiments
-```
-
----
-
 ## 🔧 Requirements
 
 ### Software Dependencies
