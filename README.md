@@ -19,7 +19,7 @@
 
 ---
 <p align="center">
-  <img src="assets/method.png" alt="Monkey Jump Logo" width="400"/>
+  <img src="assets/method.png" alt="Monkey Jump Logo" width="600"/>
 </p>
 ## 🔷 Overview
 
