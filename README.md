@@ -88,7 +88,7 @@ init_router_centers(
 ## 📊 Benchmarks
 
 <p align="center">
-  <img src="assets/effi%20(1).png" width="800" alt="Efficiency Chart"/>
+  <img src="assets/effi.png" width="800" alt="Efficiency Chart"/>
 </p>
 
 - 14 Text tasks (GLUE, CSQA, etc.)
