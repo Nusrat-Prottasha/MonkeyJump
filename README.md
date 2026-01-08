@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/Money_Jump.png" alt="Monkey Jump Logo" width="600"/>
+  <img src="assets/Money_Jump.png" alt="Monkey Jump Logo" width="400"/>
 </p>
 
-<h1 align="center"> Monkey Jump:MoE-Style PEFT for Efficient Multi-Task Learning</h1>
+<h1 align="center"> Monkey Jump : MoE-Style PEFT for Efficient Multi-Task Learning</h1>
 <p align="center">
   <a href="#" target="_blank">
     <img src="assets/web.png" alt="Project Website" height="36">
