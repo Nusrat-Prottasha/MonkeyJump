@@ -85,11 +85,80 @@ init_router_centers(
 
 ---
 
-## 📊 Benchmarks
+### 📈 Efficiency Analysis
 
 <p align="center">
   <img src="assets/effi.png" width="800" alt="Efficiency Chart"/>
 </p>
+
+Monkey Jump (MJ) is designed to deliver **MoE-style specialization** without compromising the efficiency that PEFT methods are known for. To evaluate this, we use the `LLaVA-OneVision-Qwen2-0.5B` backbone with `rank=2`, applying MoE-style PEFT to attention projections (Q, K, V, O).
+
+All methods are benchmarked under the **same environment** for fairness:
+
+- **GPU**: NVIDIA H100 80GB  
+- **Framework**: PyTorch + HuggingFace Transformers  
+- **Batch Size**: 8  
+- **Gradient Accumulation**: 2  
+
+The figure above compares **MJ variants** and **MoE-PEFT baselines** across 6 key metrics.
+
+---
+
+### 🔢 Parameter Efficiency
+
+MJ uses **significantly fewer trainable parameters**:
+
+| Method         | Params (K) |
+|----------------|------------|
+| MJ-Propulsion  | **49**     |
+| MixLoRA        | 364        |
+| HydraLoRA      | 909        |
+| MoELoRA        | 1,425      |
+| MJ-LoRAFA      | 98         |
+| MJ-LoRA        | 270        |
+
+> 🔍 *Despite the lower trainable parameter count, the total model size remains nearly identical (~1,705MB), as MJ reuses existing adapters instead of adding new experts.*
+
+---
+
+### 💾 Memory Efficiency
+
+MJ significantly reduces peak GPU memory usage:
+
+| Method         | Peak Memory (GB) |
+|----------------|------------------|
+| MJ-Propulsion  | **12.0**         |
+| MoEAdaLoRA     | 23.2             |
+| MoELoRA        | 22.8             |
+| MJ-AdaLoRA     | 15.4             |
+
+> 💡 *MJ achieves memory savings of up to **48%**, thanks to top-k sparse routing that activates fewer branches per pass.*
+
+---
+
+### ⚡ Training Speed
+
+MJ improves training throughput and duration:
+
+| Method         | It/s | Train Time (min) |
+|----------------|------|------------------|
+| MJ-Propulsion  | **5.94** | **5.0**         |
+| MoE-PEFT Avg.  | 3.02–3.83 | 7.7–9.4        |
+
+> 🚀 *All MJ variants exceed 4.8 it/s, while no MoE-PEFT method exceeds 3.9 it/s.*
+
+---
+
+### 🧠 Inference Speed
+
+MJ maintains high throughput during inference:
+
+- MJ-Propulsion achieves **15.8 it/s** on SST-2
+- MoE-PEFT ranges from **9.4 to 12.8 it/s**
+
+> 📌 *On average, MJ variants achieve **10–25% higher** inference throughput.*
+
+## 📊 Benchmarks
 
 - 14 Text tasks (GLUE, CSQA, etc.)
 - 14 Image tasks (ImageNet, VQA, etc.)
