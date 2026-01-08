@@ -17,7 +17,7 @@ We provide theoretical analysis showing that token-wise routing improves express
 
 ## 🚀 Features
 
-- 🔀 MoE-style routing with zero routing parameters
+- 🔀 MoE-style routing without any trainable parameters
 - 🧠 Token-wise and sentence-wise clustering-based routing
 - ⚡ 1.5–2× faster training and inference
 - 💾 Up to 48% GPU memory savings
