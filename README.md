@@ -3,7 +3,6 @@
 <p align="center">
   <img src="assets/Money_Jump.png" alt="Monkey Jump Logo" width="140"/>
 </p>
-
 <p align="center">
   <a href="#" target="_blank">
     <img src="assets/web.png" alt="Project Website" height="36">
