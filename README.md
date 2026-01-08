@@ -1,24 +1,4 @@
-
-<p align="center">
-  <img src="assets/Monkey_Jump.png" alt="Monkey Jump Logo" width="400"/>
-</p>
-
-<h1 align="center"> Monkey Jump : MoE-Style PEFT for Efficient Multi-Task Learning </h1>
-
-<p align="center">
-  <a href="#" target="_blank">
-    <img src="assets/web.png" alt="Project Website" height="36">
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/Nusrat-Prottasha/MonkeyJump" target="_blank">
-    <img src="assets/github.png" alt="GitHub" height="36">
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="#" target="_blank">
-    <img src="assets/arxiv.png" alt="arXiv Paper" height="36">
-  </a>
-</p>
-
+<p align="center"> <img src="assets/Money_Jump.png" alt="Monkey Jump Logo" width="400"/> </p> <h1 align="center"> Monkey Jump : MoE-Style PEFT for Efficient Multi-Task Learning</h1> <p align="center"> <a href="#" target="_blank"> <img src="assets/web.png" alt="Project Website" height="36"> </a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/Nusrat-Prottasha/MonkeyJump" target="_blank"> <img src="assets/github.png" alt="GitHub" height="36"> </a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="#" target="_blank"> <img src="assets/arxiv.png" alt="arXiv Paper" height="36"> </a> </p>
 ---
 
 ## 🔷 Abstract
