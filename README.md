@@ -18,7 +18,9 @@
 </p>
 
 ---
-
+<p align="center">
+  <img src="assets/method.png" alt="Monkey Jump Logo" width="400"/>
+</p>
 ## 🔷 Overview
 
 Monkey Jump (MJ) achieves **MoE-style specialization** in parameter-efficient fine-tuning (PEFT) without adding trainable parameters. It treats existing PEFT adapters as **implicit experts** and routes tokens among them using **gradient-free k-means clustering** with **EMA-updated centers**.
