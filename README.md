@@ -220,6 +220,23 @@ These results show that MJ delivers both **efficient** and **expressive** token 
 
 ---
 
+## 🧪 Ablation Study: Layer-wise Cluster Visualization
+
+<p align="center">
+  <img src="assets/MJ_24layers.jpg" alt="Layer-wise Clustering Visualization" width="800"/>
+</p>
+
+To better understand how Monkey Jump routes tokens at different depths, we visualize token clusters across all 24 layers of a Transformer. Each subplot shows the 2D t-SNE projection of token representations, colored by assigned expert (E0–E4). Cluster centers (routing centroids) are marked with stars.
+
+### 🔍 Key Takeaways:
+- Early layers show overlapping clusters — indicating general shared token features.
+- Mid layers (6–15) develop clearly **separated clusters** — reflecting token specialization.
+- Late layers exhibit both tight and diffuse clusters — suggesting a mix of specialized and general processing.
+- Routing centroids consistently stay near cluster centers, showing stable adaptation from k-means and EMA.
+
+> 🧪 **Note**: This is just one of several ablation studies we present in our paper.
+For further insights (e.g., initialization, routing sparsity, adapter sharing), please refer to the full paper.
+
 ## 📜 Citation
 
 ```bibtex
