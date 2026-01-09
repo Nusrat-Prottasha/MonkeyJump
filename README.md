@@ -157,6 +157,59 @@ MJ maintains high throughput during inference:
 - MoE-PEFT ranges from **9.4 to 12.8 it/s**
 
 > 📌 *On average, MJ variants achieve **10–25% higher** inference throughput.*
+>
+> 
+## 🔬 Theoretical Insights
+
+Monkey Jump (MJ) is not only parameter-efficient—it’s also grounded in solid theoretical guarantees. Below are two key results explaining why MJ works better than standard PEFT and MoE-PEFT variants.
+
+---
+
+### 📈 1. Token-wise Routing Increases Expressivity
+
+In standard PEFT, all adapters are applied uniformly to all tokens. The aggregate update has limited expressivity due to cancellation effects:
+
+```math
+U^{\text{PEFT}} = \left( \sum_{e=1}^{E} \Delta W_e \right) H
+```
+
+This summed update may have lower rank than the union of all adapter subspaces.
+
+In contrast, MJ routes tokens selectively:
+
+```math
+U^{\text{MJ}} = \left[ \Delta W_1 H_1 \; \cdots \; \Delta W_E H_E \right]
+```
+
+Where \( H_e \) contains the tokens routed to adapter \( e \). This increases the span of outputs:
+
+```math
+\mathrm{rank}(U^{\text{MJ}}) \geq \mathrm{rank}(U^{\text{PEFT}})
+```
+
+> ✅ **Key Insight**: By avoiding overlap and cancellation, MJ preserves the diversity of adapter transformations.
+
+---
+
+### 🧠 2. Last-Token Routing is Information-Theoretically Optimal
+
+When performing sequence-wise routing, we need a single representation to determine adapter routing.
+
+In causal Transformers, the **last token representation** \( h_T \) is optimal because it has attended to the entire input sequence:
+
+```math
+I(h_T; X) \geq I(h_t; X) \quad \forall t < T
+```
+
+```math
+I(h_T; X) \geq I(\bar{h}; X), \quad \text{where } \bar{h} = \frac{1}{T} \sum_{t=1}^T h_t
+```
+
+> ✅ **Conclusion**: Last-token routing retains the most semantic content and is superior to mean/max pooling for causal models.
+
+---
+
+These results show that MJ delivers both **efficient** and **expressive** token adaptation, grounded in provable design choices.
 
 ## 📊 Benchmarks
 
