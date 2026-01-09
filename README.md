@@ -211,14 +211,43 @@ I(h_T; X) \geq I(\bar{h}; X), \quad \text{where } \bar{h} = \frac{1}{T} \sum_{t=
 
 These results show that MJ delivers both **efficient** and **expressive** token adaptation, grounded in provable design choices.
 
-## 📊 Benchmarks
 
-- 14 Text tasks (GLUE, CSQA, etc.)
-- 14 Image tasks (ImageNet, VQA, etc.)
-- 19 Video tasks (Action, Reasoning, etc.)
-- 🧠 Matches MoE-PEFT performance with fewer parameters and faster training
+## 🧪 Experiments
 
----
+We evaluate **Monkey Jump (MJ)** on 47 multi-task benchmarks across three modalities:
+
+- 📝 **Text**: 14 tasks (98K samples)  
+- 🖼️ **Image**: 14 tasks (42K samples)  
+- 🎬 **Video**: 19 tasks (13K samples)
+
+### ⚙️ Setup
+
+- **Text tasks** use *LLaMA-3-8B-Instruct*.
+- **Image/Video tasks** use *LLaVA-OneVision-Qwen2-7B*.
+- All methods apply PEFT or MoE-PEFT to attention projections (Q, K, V, O) and FFN gate.
+- MJ variants tested: `MJLoRA`, `MJLoRAFA`, `MJAdaLoRA`, and `MJPropulsion`.
+
+> For ablations, we use `Qwen2-0.5B` and restrict PEFT to attention projections only.  
+> Hyperparameters, model configurations, and dataset details are in the appendix.
+
+### 📊 Overall Results
+
+<p align="center">
+  <img src="assets/exp_table.png" alt="MJ Benchmark Results" width="850"/>
+</p>
+
+Table: Average performance across task families (mean ± std over 5 runs).  
+Columns: **GLUE**, **Commonsense & QA**, **Image Classification**, **Vision–Language QA**,  
+**Action & Object Reasoning**, **Motion**, and **High-Level Reasoning**.
+
+### 🔍 Key Takeaways
+
+- ✅ **MJ achieves comparable or better performance** than MoE-PEFT methods with **7–29× fewer parameters**
+- 🏆 **MJLoRA ties or outperforms** HydraLoRA and MoA on GLUE and QA tasks
+- 🖼️ **MJAdaLoRA** leads image classification and action-object tasks
+- ⚡ **MJPropulsion** shines in motion understanding and high-level video reasoning
+
+Despite being **router-free and gradient-free**, MJ achieves specialization through content-aware routing—backed by both theory and experiment.
 
 ## 🧪 Ablation Study: Layer-wise Cluster Visualization
 
