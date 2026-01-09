@@ -2,15 +2,6 @@
 <p align="center"> <img src="assets/method.png" alt="Monkey Jump Logo" width="900"/> </p>
 ---
 
-## 🔷 Abstract
-
-Monkey Jump is a parameter-efficient fine-tuning (PEFT) method that achieves Mixture-of-Experts (MoE)-style specialization without introducing any new trainable parameters. Traditional MoE-PEFT approaches improve expressivity through token-specific expert routing, but incur additional memory, training cost, and parameter overhead due to added routers and expert modules—undermining the core goals of PEFT.
-
-Monkey Jump avoids these costs by treating the PEFT adapters already present in each Transformer block (e.g., query, key, value, up, and down projections) as implicit experts, and routes tokens among them using $k$-means clustering with EMA-updated centers. This routing mechanism is entirely gradient-free and introduces no learned parameters.
-
-We provide theoretical analysis showing that token-wise routing improves expressivity by avoiding cancellation effects found in uniformly applied adapters. In comprehensive multi-task experiments across 14 text, 14 image, and 19 video benchmarks, Monkey Jump achieves competitive performance with MoE-PEFT methods while using 7–29× fewer trainable parameters, up to 48% lower memory, and 1.5–2× faster training. Monkey Jump is architecture-agnostic and can be applied to any adapter-based PEFT method.
-
-
 ## 🧠 Abstract
 
 Mixture-of-experts (MoE) variants of parameter-efficient fine-tuning (PEFT) enable per-token specialization, but they introduce **additional trainable routers and expert parameters**, increasing memory and training costs. This undermines the core goal of **parameter-efficient fine-tuning**.
