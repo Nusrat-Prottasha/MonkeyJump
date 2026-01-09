@@ -217,11 +217,7 @@
     }
     .sec-body p{ margin: 10px 0; color: var(--muted); line-height: 1.65; }
     .sec-body ul{ margin: 10px 0 0 18px; color: var(--muted); line-height: 1.65; }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-    }
+
     .card{
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.04);
@@ -232,7 +228,6 @@
       margin:0 0 6px;
       font-size: 15px;
     }
-    .card p{ margin:0; font-size: 14px; }
 
     .kpi{
       display:flex; flex-wrap:wrap; gap:10px;
@@ -359,6 +354,7 @@
     <!-- Hero -->
     <div class="hero">
       <div class="hero-inner">
+        <!-- ✅ Updated to your real filename: Money_Jump.png -->
         <img class="logo" src="assets/Money_Jump.png" alt="Monkey Jump Logo" />
 
         <h1>Monkey Jump : MoE-Style PEFT for Efficient Multi-Task Learning</h1>
@@ -598,22 +594,16 @@ init_router_centers(
         <div class="two-col">
           <div class="card">
             <h3>1) Token-wise routing increases expressivity</h3>
-            <p>
-              Standard PEFT sums adapter updates, which can cause cancellation:
-            </p>
+            <p>Standard PEFT sums adapter updates, which can cause cancellation:</p>
             <pre><code>U^{PEFT} = ( Σ_{e=1..E} ΔW_e ) H</code></pre>
-            <p>
-              MJ routes tokens selectively to adapters:
-            </p>
+            <p>MJ routes tokens selectively to adapters:</p>
             <pre><code>U^{MJ} = [ ΔW_1 H_1  ...  ΔW_E H_E ]
 rank(U^{MJ}) ≥ rank(U^{PEFT})</code></pre>
           </div>
 
           <div class="card">
             <h3>2) Last-token routing is optimal (sequence-wise)</h3>
-            <p>
-              In causal Transformers, the last token representation has attended to the full sequence:
-            </p>
+            <p>In causal Transformers, the last token representation has attended to the full sequence:</p>
             <pre><code>I(h_T; X) ≥ I(h_t; X)   for all t &lt; T
 I(h_T; X) ≥ I(mean(h); X)</code></pre>
           </div>
@@ -649,10 +639,9 @@ I(h_T; X) ≥ I(mean(h); X)</code></pre>
         </div>
 
         <div class="figure">
+          <!-- ✅ Updated to your real filename with space -->
           <img src="assets/Experiment Average.png" alt="MJ benchmark results" />
-          <div class="caption">
-            Average performance across task families (mean ± std over 5 runs).
-          </div>
+          <div class="caption">Average performance across task families (mean ± std over 5 runs).</div>
         </div>
 
         <div class="card" style="margin-top:14px;">
@@ -703,7 +692,7 @@ I(h_T; X) ≥ I(mean(h); X)</code></pre>
             <li>Expert Usage and Self-Balancing</li>
             <li>Complexity and Parameter Analysis</li>
           </ul>
-          <p class="small-muted">For full details, please refer to the paper.</p>
+          <p class="small-muted">For full details, please refer to the full paper.</p>
         </div>
       </div>
     </section>
@@ -741,9 +730,9 @@ I(h_T; X) ≥ I(mean(h); X)</code></pre>
   </div>
 
   <script>
-    // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
+
 
