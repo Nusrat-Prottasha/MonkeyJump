@@ -4,222 +4,273 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Monkey Jump: MoE-Style PEFT for Efficient Multi-Task Learning</title>
+
+  <!-- ✅ (OPTIONAL) favicon -->
   <link rel="icon" href="assets/Money_Jump.png" type="image/png" />
 
   <style>
     body {
       font-family: 'Inter', Arial, sans-serif;
-      background-color: #ffffff;
+      background: #ffffff;
       color: #111;
       margin: 0;
       padding: 0;
       counter-reset: fig;
     }
 
-    header.hero { text-align: center; padding: 42px 20px 18px 20px; }
+    header.hero {
+      text-align: center;
+      padding: 50px 20px 20px;
+    }
+
     .wrap { max-width: 960px; margin: 0 auto; }
 
-    .pill{
-      background:#0366d6; color:#fff; padding:6px 14px; border-radius:50px;
-      font-size:.9em; display:inline-block; margin-bottom: 12px;
+    .pill {
+      background: #0366d6;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.9em;
+      display: inline-block;
+      margin-bottom: 12px;
     }
 
-    .title-with-logo{
-      display:inline-flex; align-items:center; justify-content:center;
+    .title-with-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-family: "Georgia", serif;
-      font-weight: 600; font-size: 1.9rem;
-      color:#1a1a1a; text-align:center; gap: 10px;
-      margin: .35rem auto .15rem auto;
+      font-weight: 600;
+      font-size: 1.9rem;
+      color: #1a1a1a;
+      gap: 10px;
+      margin: 0.3rem auto 0.4rem auto;
       line-height: 1.2;
+      text-align: center;
+      flex-wrap: wrap;
     }
-    .title-logo{
-      height: 56px; width:auto;
-      transform: translateY(-2px);
-      transition: transform .2s ease-in-out;
-    }
-    .title-logo:hover{ transform: rotate(-5deg) scale(1.05) translateY(-2px); }
 
-    .subtitle{
-      max-width: 920px;
+    .title-logo {
+      height: 58px;
+      width: auto;
+      transform: translateY(-2px);
+      transition: transform 0.2s ease-in-out;
+    }
+    .title-logo:hover { transform: rotate(-5deg) scale(1.05) translateY(-2px); }
+
+    .subtitle {
+      max-width: 900px;
       margin: 10px auto 0;
-      color:#333;
       font-size: 1.02rem;
+      color: #333;
       line-height: 1.45;
     }
 
-    .links{ display:flex; justify-content:center; gap: 15px; margin-top: 18px; flex-wrap: wrap; }
-    .link-btn{
-      display:inline-flex; align-items:center;
-      background:#f6f8fa; border:1px solid #d0d7de; border-radius:6px;
-      padding: 8px 14px; text-decoration:none; color:#0366d6; font-weight: 600;
-      transition: background .2s;
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 18px;
+      flex-wrap: wrap;
     }
-    .link-btn:hover{ background:#eaf3ff; }
-    .link-btn img{ height: 18px; vertical-align: middle; margin-right: 6px; }
 
-    .section{
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 8px 14px;
+      text-decoration: none;
+      color: #0366d6;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .link-btn:hover { background: #eaf3ff; }
+    .link-btn img {
+      height: 18px;
+      width: auto;
+      margin-right: 6px;
+    }
+
+    /* ===== Sections ===== */
+    .section {
       max-width: 900px;
       margin: 28px auto;
       padding: 0 20px;
     }
-    .section h2{
+
+    .section h2 {
       font-size: 1.6em;
       border-bottom: 2px solid #eee;
       padding-bottom: 8px;
       margin-bottom: 16px;
-      color:#222;
-    }
-    .section p{ font-size: 1.02rem; line-height: 1.65; color:#222; }
-
-    .kicker{
-      letter-spacing:.08em; text-transform:uppercase;
-      font-weight:700; color:#6a6f76; font-size:.8rem; margin-bottom: 8px;
+      color: #222;
     }
 
-    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 26px; }
-    @media (max-width: 900px){ .grid-2{ grid-template-columns: 1fr; } }
+    .section p {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #222;
+    }
 
-    .card{
-      background:#fff; border:1px solid #e5e7eb; border-radius:12px;
-      padding: 18px 18px;
+    .kicker {
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #6a6f76;
+      font-size: .8rem;
+      margin-bottom: 8px;
+    }
+
+    /* ===== Cards ===== */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px;
       box-shadow: 0 4px 18px rgba(0,0,0,0.04);
     }
-    .card h3{ margin: 4px 0 10px 0; font-size: 1.15rem; }
-    .card ul{ margin: 0; padding-left: 18px; }
-    .card li{ margin: 8px 0; line-height: 1.55; }
 
-    .badge{
-      display:inline-block; padding:4px 10px; border-radius:999px;
-      background:#f6f8fa; border:1px solid #e1e4e8;
-      font-size:.78rem; color:#444;
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      font-size: .78rem;
+      color: #444;
+      margin-bottom: 8px;
     }
 
-    .callout{
+    /* ===== Fancy callout ===== */
+    .callout {
       position: relative;
       border-radius: 14px;
-      padding: 22px 22px;
+      padding: 22px;
       background: linear-gradient(180deg, #ffffff, #fbfdff);
       border: 1px solid #dbe7ff;
       box-shadow: 0 20px 40px rgba(3,102,214,0.06);
-      overflow:hidden;
+      overflow: hidden;
     }
-    .callout::before{
-      content:"";
-      position:absolute; inset:-1px;
-      border-radius:14px; padding:1px;
+    .callout::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 14px;
+      padding: 1px;
       background: linear-gradient(90deg, #4c8df5, #7aa9ff, #b9d1ff);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
               mask-composite: exclude;
-      pointer-events:none;
+      pointer-events: none;
     }
-    .callout .title{
-      display:inline-flex; gap:8px; align-items:center;
-      font-weight: 800; font-size: 1rem; color: #0b3b8f; margin-bottom: 10px;
+    .callout .title {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #0b3b8f;
+      margin-bottom: 10px;
     }
-    .callout p{ margin: 0; font-size: 1.05rem; line-height: 1.55rem; color:#1f2937; }
+    .callout p { margin: 0; font-size: 1.05rem; line-height: 1.55rem; }
 
-    /* figure box with auto numbering */
-    .figure-box{
+    /* ===== Figure box (auto figure numbering) ===== */
+    .figure-box {
       counter-increment: fig;
-      display:flex; flex-direction:column; align-items:center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin: 22px auto;
       max-width: 900px;
       border-top: 1px solid #e0e0e0;
       padding-top: 18px;
     }
-    .main-figure{
+
+    /* ✅ This class is used for images you add */
+    .main-figure {
       width: 100%;
       max-width: 900px;
-      height:auto;
+      height: auto;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      display:block;
+      display: block;
     }
-    .figure-box figcaption{
+
+    .figure-box figcaption {
       margin-top: 8px;
-      text-align:center;
+      text-align: center;
       font-size: 0.95rem;
-      color:#444;
+      color: #444;
       font-family: 'Times New Roman', Georgia, serif;
       line-height: 1.45;
     }
-    .figure-box figcaption::before{
+
+    .figure-box figcaption::before {
       content: "Figure " counter(fig) ": ";
       font-weight: 600;
       color: #111;
     }
 
-    /* Code blocks + copy */
-    .code-card{
-      background:#0f172a; color:#e5e7eb; border-radius:12px;
-      border:1px solid #1f2937; box-shadow: 0 10px 24px rgba(0,0,0,0.12);
-      overflow:hidden; margin: 18px 0;
+    /* ===== Code card + copy button ===== */
+    .code-card {
+      background: #0f172a;
+      color: #e5e7eb;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      margin: 18px 0;
     }
-    .code-card .bar{
-      display:flex; justify-content:space-between; align-items:center;
-      padding: 10px 14px; background:#0b1220; border-bottom:1px solid #1f2937;
-      font-size:.88rem; color:#9ca3af;
+    .code-card .bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: #0b1220;
+      border-bottom: 1px solid #1f2937;
+      font-size: 0.88rem;
+      color: #9ca3af;
     }
-    .code-card .copy{
-      cursor:pointer; border:1px solid #334155; background:#111827;
-      color:#d1d5db; border-radius:8px; padding:4px 10px; font-size:.8rem;
+    .code-card .copy {
+      cursor: pointer;
+      border: 1px solid #334155;
+      background: #111827;
+      color: #d1d5db;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
     }
-    .code-card pre{ margin:0; padding:12px 14px; overflow-x:auto; }
-    .code-card code{
+    .code-card pre { margin: 0; padding: 12px 14px; overflow-x: auto; }
+    .code-card code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-      font-size: .92rem;
+      font-size: 0.92rem;
     }
 
-    .tip{
-      border-radius:10px; padding:10px 12px; margin: 8px 0 2px;
-      border:1px solid #e5e7eb; background:#f8fafc; color:#334155; font-size:.92rem;
-    }
-
-    /* Slider */
-    #performance { scroll-margin-top: 70px; }
-    .slider-wrap{ max-width:900px; margin: 18px auto 8px; position: relative; }
-    .slider{
-      position:relative; overflow:hidden;
-      border:1px solid #e6e8eb; border-radius:12px;
-      background:#fff; box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-    }
-    .slides{ display:flex; transition: transform .5s ease; will-change: transform; }
-    .slide{ min-width: 100%; user-select:none; }
-    .slide img{ display:block; width:100%; height:auto; }
-
-    .slider-btn{
-      position:absolute; top:50%; transform: translateY(-50%);
-      border:1px solid #d0d7de; background:#f6f8fa;
-      border-radius:999px; width:38px; height:38px;
-      display:grid; place-items:center; cursor:pointer;
-      transition: background .2s, transform .1s;
-    }
-    .slider-btn:hover{ background:#eaf3ff; }
-    .slider-btn:active{ transform: translateY(-50%) scale(0.96); }
-    .slider-btn.left{ left:10px; }
-    .slider-btn.right{ right:10px; }
-
-    .dots{ display:flex; gap:8px; justify-content:center; align-items:center; margin-top: 10px; }
-    .dot{ width:8px; height:8px; border-radius:50%; background:#d7dde3; cursor:pointer; }
-    .dot.active{ background:#0366d6; }
-
-    footer{
-      text-align:center; padding: 30px 0;
-      font-size:.9em; color:#777;
-      border-top:1px solid #eee;
+    footer {
+      text-align: center;
+      padding: 28px 0;
+      font-size: 0.9em;
+      color: #777;
+      border-top: 1px solid #eee;
       margin-top: 30px;
     }
   </style>
 
-  <!-- MathJax for LaTeX rendering -->
+  <!-- (OPTIONAL) MathJax -->
   <script>
     window.MathJax = {
-      tex: {
-        inlineMath: [['\\(','\\)'], ['$', '$']],
-        displayMath: [['\\[','\\]']],
-        processEscapes: true,
-      },
+      tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
       options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
     };
   </script>
@@ -228,71 +279,8 @@
   </script>
 
   <script>
+    // Copy buttons
     document.addEventListener("DOMContentLoaded", () => {
-      // ===== Results slider =====
-      const slidesContainer = document.querySelector("#results-slider .slides");
-      const slides = slidesContainer ? slidesContainer.querySelectorAll(".slide") : [];
-      const btnLeft = document.querySelector("#results-slider .slider-btn.left");
-      const btnRight = document.querySelector("#results-slider .slider-btn.right");
-      const dotsWrap = document.getElementById("results-dots");
-
-      let index = 0;
-      const N = slides.length;
-      let timer;
-      const AUTOPLAY_MS = 9000;
-
-      function updateSlider() {
-        slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-        dotsWrap.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === index));
-      }
-
-      function goToSlide(i) {
-        index = (i + N) % N;
-        updateSlider();
-        restartAutoPlay();
-      }
-
-      function nextSlide() {
-        if (!N) return;
-        index = (index + 1) % N;
-        updateSlider();
-      }
-
-      function prevSlide() {
-        if (!N) return;
-        index = (index - 1 + N) % N;
-        updateSlider();
-      }
-
-      if (N && dotsWrap) {
-        slides.forEach((_, i) => {
-          const dot = document.createElement("span");
-          dot.className = "dot" + (i === 0 ? " active" : "");
-          dot.addEventListener("click", () => goToSlide(i));
-          dotsWrap.appendChild(dot);
-        });
-
-        btnLeft && btnLeft.addEventListener("click", () => { prevSlide(); restartAutoPlay(); });
-        btnRight && btnRight.addEventListener("click", () => { nextSlide(); restartAutoPlay(); });
-
-        function startAutoPlay(){ timer = setInterval(nextSlide, AUTOPLAY_MS); }
-        function stopAutoPlay(){ clearInterval(timer); }
-        function restartAutoPlay(){ stopAutoPlay(); startAutoPlay(); }
-
-        const sliderWrap = document.querySelector("#results-slider");
-        sliderWrap && sliderWrap.addEventListener("mouseenter", stopAutoPlay);
-        sliderWrap && sliderWrap.addEventListener("mouseleave", startAutoPlay);
-
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "ArrowLeft") prevSlide();
-          if (e.key === "ArrowRight") nextSlide();
-        });
-
-        updateSlider();
-        startAutoPlay();
-      }
-
-      // ===== Copy buttons =====
       document.querySelectorAll(".code-card .copy").forEach(btn => {
         btn.addEventListener("click", () => {
           const sel = btn.getAttribute("data-copy");
@@ -311,190 +299,138 @@
 
 <body>
 
-  <!-- HERO -->
+  <!-- ===================== -->
+  <!-- HERO (TOP SECTION)    -->
+  <!-- ===================== -->
   <header class="hero">
     <div class="wrap">
       <span class="pill">Under review • 2026</span>
 
+      <!-- ✅ HERO LOGO + TITLE -->
       <h1 class="title-with-logo">
+        <!-- ✅ CHANGE THIS LOGO -->
         <img src="assets/Money_Jump.png" alt="Monkey Jump Logo" class="title-logo" />
         Monkey Jump: MoE-Style PEFT for Efficient Multi-Task Learning
       </h1>
 
       <div class="subtitle">
-        MoE-style token specialization for PEFT <b>without adding trainable routers or extra expert parameters</b>.
-        Routing is <b>gradient-free</b> using <b>k-means</b> with <b>EMA-updated centers</b>.
+        MoE-style specialization for PEFT <b>without trainable routers</b>.
+        Gradient-free routing via <b>k-means</b> + <b>EMA-updated centers</b>.
       </div>
 
+      <!-- ✅ BUTTON LINKS -->
       <div class="links">
-        <!-- Replace # with your final website link -->
         <a href="#" target="_blank" class="link-btn">
-          <img src="assets/web.png" alt="Website" />
-          <span>Website</span>
+          <img src="assets/web.png" alt="Website icon" />
+          Website
         </a>
-
         <a href="https://github.com/Nusrat-Prottasha/MonkeyJump" target="_blank" class="link-btn">
-          <img src="assets/github.png" alt="GitHub" />
-          <span>Code</span>
+          <img src="assets/github.png" alt="GitHub icon" />
+          Code
         </a>
-
-        <!-- Replace # with your arXiv link -->
         <a href="#" target="_blank" class="link-btn">
-          <img src="assets/arxiv.png" alt="arXiv" />
-          <span>arXiv</span>
+          <img src="assets/arxiv.png" alt="arXiv icon" />
+          arXiv
         </a>
       </div>
     </div>
   </header>
 
-  <!-- MAIN FIGURE -->
+  <!-- ===================== -->
+  <!-- ✅ MAIN IMAGE (Figure) -->
+  <!-- ===================== -->
   <figure class="figure-box">
-    <img src="assets/method.png" alt="Monkey Jump Method" class="main-figure" />
+    <!-- ✅ ADD/REPLACE IMAGE HERE -->
+    <img src="assets/method.png" alt="Main Method Figure" class="main-figure" />
     <figcaption>
-      Monkey Jump (MJ) reuses per-projection PEFT adapters as <em>implicit experts</em> and routes tokens with
-      gradient-free k-means clustering + EMA-updated centers, enabling sparse top-$k$ activation without learned routers.
+      Monkey Jump (MJ) reuses per-projection adapters as implicit experts and routes tokens using k-means + EMA (no learned router).
     </figcaption>
   </figure>
 
-  <!-- ABSTRACT -->
+  <!-- ===================== -->
+  <!-- ABSTRACT               -->
+  <!-- ===================== -->
   <section class="section" id="abstract">
     <h2>Abstract</h2>
     <p>
-      Mixture-of-experts (MoE) variants of parameter-efficient fine-tuning (PEFT) enable per-token specialization,
-      but they typically introduce <b>extra trainable routers and expert parameters</b>, increasing memory and training costs.
-      We propose <b>Monkey Jump (MJ)</b>, which brings MoE-style specialization to PEFT <b>without adding any extra trainable parameters</b>.
-      MJ reuses the PEFT adapters already present in each Transformer block (e.g., Q/K/V/O and FFN projections) as implicit experts,
-      and routes tokens among them using <b>k-means clustering</b> with <b>EMA-updated centers</b>—no gradients, no learned routers.
-      Across 47 multi-task benchmarks (14 text, 14 image, 19 video), MJ matches or outperforms MoE-PEFT baselines while using
-      7–29× fewer trainable parameters, up to 48% lower peak GPU memory, and 1.5–2× faster training.
+      Mixture-of-experts (MoE) variants of PEFT enable per-token specialization but introduce extra trainable routers and expert parameters.
+      We propose <b>Monkey Jump (MJ)</b>, which achieves MoE-style specialization while adding <b>zero extra trainable parameters</b>.
+      MJ reuses the adapters already present in each Transformer block as implicit experts and performs gradient-free routing using
+      <b>$k$-means</b> with <b>EMA-updated centers</b>.
     </p>
   </section>
 
-  <!-- MOTIVATION -->
+  <!-- ===================== -->
+  <!-- MOTIVATION (2 CARDS)   -->
+  <!-- ===================== -->
   <section class="section" id="motivation">
     <div class="kicker">Why this work</div>
     <h2>What MoE-PEFT adds — and how <em>Monkey Jump</em> avoids it</h2>
 
     <div class="grid-2" style="margin-top:16px;">
       <div class="card">
-        <span class="badge">Limitations in MoE-PEFT</span>
+        <span class="badge">Limitations</span>
         <h3>Common overheads</h3>
         <ul>
-          <li><b>Extra routers:</b> learned routing networks add parameters and training cost.</li>
-          <li><b>Extra experts:</b> explicit expert adapters increase optimizer state and memory.</li>
-          <li><b>More complexity:</b> more components, more tuning, more failure modes.</li>
-          <li><b>Higher latency:</b> routing + extra modules can slow training/inference.</li>
+          <li><b>Extra routers</b> and <b>extra experts</b> increase memory & cost.</li>
+          <li>More complexity and more hyperparameters.</li>
+          <li>Slower training and inference.</li>
         </ul>
       </div>
 
       <div class="card">
         <span class="badge">Monkey Jump</span>
-        <h3>What MJ does instead</h3>
+        <h3>Our solution</h3>
         <ul>
-          <li><b>Zero extra experts:</b> reuse existing per-projection adapters as experts.</li>
-          <li><b>Zero trainable router:</b> k-means routing + EMA, no gradients.</li>
-          <li><b>Sparse top-$k$:</b> activate only a subset of projections per token.</li>
-          <li><b>Drop-in:</b> compatible with LoRA / AdaLoRA / LoRA-FA / Propulsion.</li>
+          <li><b>Reuses existing adapters</b> as experts.</li>
+          <li><b>No trainable router</b>: k-means + EMA routing.</li>
+          <li><b>Top-k sparse activation</b> for efficiency.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- KEY IDEA CALLOUT -->
+  <!-- ===================== -->
+  <!-- CALL OUT BOX           -->
+  <!-- ===================== -->
   <section class="section" id="key-idea">
     <div class="callout">
       <div class="title">🔷 Key Idea</div>
       <p>
-        <em>Every Transformer block already contains multiple adapters (one per projection). MJ treats them as implicit experts,
-        and performs gradient-free token routing using k-means + EMA to get MoE-style specialization without extra parameters.</em>
+        <em>Every Transformer block already has multiple PEFT adapters (Q/K/V/O, FFN). MJ treats them as implicit experts and routes tokens
+        with gradient-free k-means + EMA—so we get MoE-style specialization without adding trainable routers or experts.</em>
       </p>
     </div>
   </section>
 
-  <!-- CONTRIBUTIONS -->
-  <section class="section" id="contributions">
-    <div class="kicker">Contributions</div>
-    <h2>What we bring</h2>
-
-    <div class="grid-2" style="margin-top:16px;">
-      <div class="card">
-        <h3>1) Router-free MoE for PEFT</h3>
-        <p>MoE-style specialization by reusing existing adapters as experts—no new expert parameters.</p>
-      </div>
-      <div class="card">
-        <h3>2) Gradient-free routing</h3>
-        <p>k-means initialization + EMA-updated centers to route tokens without training a router network.</p>
-      </div>
-      <div class="card">
-        <h3>3) Efficiency gains</h3>
-        <p>7–29× fewer trainable parameters, up to 48% lower peak memory, and 1.5–2× faster training.</p>
-      </div>
-      <div class="card">
-        <h3>4) Broad compatibility</h3>
-        <p>Works across LoRA, AdaLoRA, LoRA-FA, Propulsion, and multiple backbones/modalities.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- EFFICIENCY -->
+  <!-- ===================== -->
+  <!-- ✅ ADD ANOTHER IMAGE    -->
+  <!-- ===================== -->
   <section class="section" id="efficiency">
-    <div class="kicker">Efficiency Analysis</div>
-    <h2>Efficiency of <em>Monkey Jump</em></h2>
+    <div class="kicker">Efficiency</div>
+    <h2>Efficiency Analysis</h2>
 
     <figure class="figure-box">
-      <img src="assets/effi.png" alt="Efficiency chart" class="main-figure" />
+      <!-- ✅ ADD/REPLACE IMAGE HERE -->
+      <img src="assets/effi.png" alt="Efficiency Figure" class="main-figure" />
       <figcaption>
-        MJ vs MoE-PEFT baselines across key metrics (params, memory, training speed, inference speed) on the same setup.
+        Efficiency comparison of MJ variants and MoE-PEFT baselines (params, memory, throughput).
       </figcaption>
     </figure>
-
-    <p>
-      MJ achieves MoE-style specialization while preserving the PEFT parameter budget by routing tokens to a subset of
-      per-projection adapters. Sparse top-$k$ activation reduces compute and memory while keeping the total model size nearly unchanged.
-    </p>
   </section>
 
-  <!-- PERFORMANCE SLIDER -->
-  <section class="section" id="performance">
-    <div class="kicker">Performance results</div>
-    <h2>Main results across text, image, and video</h2>
-    <p>
-      MJ matches or outperforms MoE-PEFT baselines on 47 tasks (14 text, 14 image, 19 video) while using fewer trainable parameters
-      and less GPU memory.
-    </p>
+  <!-- ===================== -->
+  <!-- CODE SECTION           -->
+  <!-- ===================== -->
+  <section class="section" id="code">
+    <div class="kicker">Technical</div>
+    <h2>How to use Monkey Jump</h2>
 
-    <div class="slider-wrap" aria-label="Results carousel">
-      <div class="slider" id="results-slider">
-        <div class="slides">
-          <!-- Replace these with your own images if you have more tables -->
-          <div class="slide"><img src="assets/Experiment Average.png" alt="Average results across task families"></div>
-          <div class="slide"><img src="assets/effi.png" alt="Efficiency results"></div>
-          <div class="slide"><img src="assets/MJ_24layers.jpg" alt="Ablation visualization"></div>
-        </div>
-
-        <button class="slider-btn left" aria-label="Previous" data-dir="-1">&#x276E;</button>
-        <button class="slider-btn right" aria-label="Next" data-dir="1">&#x276F;</button>
-      </div>
-      <div class="dots" id="results-dots" aria-label="Slide indicators"></div>
-    </div>
-
-    <div class="tip">
-      <b>Tip:</b> If you add more images (e.g., <code>assets/tab1.png</code>, <code>assets/tab2.png</code>), just duplicate
-      a <code>&lt;div class="slide"&gt;...&lt;/div&gt;</code> line in the slider.
-    </div>
-  </section>
-
-  <!-- TECHNICAL CODE USE -->
-  <section class="section" id="code-use">
-    <div class="kicker">Technical Code Use</div>
-    <h2>How to use <em>Monkey Jump</em> in your pipeline</h2>
-    <p>
-      Below is a minimal example to apply MJ-style routing to your model and initialize routing centers.
-    </p>
-
-    <h3>1) Apply Monkey Jump</h3>
     <div class="code-card">
-      <div class="bar"><span>Python</span><button class="copy" data-copy="#code-apply">Copy</button></div>
+      <div class="bar">
+        <span>Python</span>
+        <button class="copy" data-copy="#code-apply">Copy</button>
+      </div>
       <pre><code id="code-apply">from transformers import AutoModelForCausalLM
 from src.MJLoRA import apply_monkeyjump
 
@@ -513,56 +449,36 @@ model = apply_monkeyjump(
     rep_mode="token",
 )</code></pre>
     </div>
-
-    <h3>2) Initialize router centers (k-means)</h3>
-    <div class="code-card">
-      <div class="bar"><span>Python</span><button class="copy" data-copy="#code-init">Copy</button></div>
-      <pre><code id="code-init">from src.kmneas import init_router_centers
-
-init_router_centers(
-    trainer,
-    subset_size=4000,
-    kmeans_iters=15,
-    rep_mode="token",
-)</code></pre>
-    </div>
-
-    <div class="tip">
-      <b>Tip:</b> <code>rep_mode</code> can be <code>"token"</code> (token-wise) or <code>"last"</code> / <code>"mean"</code> for sequence-wise routing.
-    </div>
   </section>
 
-  <!-- ABLATIONS -->
+  <!-- ===================== -->
+  <!-- ✅ ADD FINAL IMAGE      -->
+  <!-- ===================== -->
   <section class="section" id="ablations">
-    <div class="kicker">Ablation Study</div>
+    <div class="kicker">Ablations</div>
     <h2>Layer-wise cluster visualization</h2>
 
     <figure class="figure-box">
-      <img src="assets/MJ_24layers.jpg" alt="Layer-wise clustering visualization" class="main-figure" />
+      <!-- ✅ ADD/REPLACE IMAGE HERE -->
+      <img src="assets/MJ_24layers.jpg" alt="Ablation visualization" class="main-figure" />
       <figcaption>
-        Token clusters across layers (t-SNE) colored by assigned expert. Routing centroids remain stable under EMA updates.
+        Token cluster visualization across 24 layers (t-SNE), colored by expert assignment.
       </figcaption>
     </figure>
-
-    <div class="card">
-      <span class="badge">Ablation topics</span>
-      <h3>What we study</h3>
-      <ul>
-        <li>Initialization method, k-means sample size, update coverage, routing layers</li>
-        <li>Routing granularity, similarity function, routing temperature, EMA smoothing</li>
-        <li>Projection specialization, shared expert selection, rank sensitivity</li>
-        <li>Expert usage/self-balancing, complexity and parameter analysis</li>
-      </ul>
-    </div>
   </section>
 
-  <!-- CITATION -->
+  <!-- ===================== -->
+  <!-- CITATION               -->
+  <!-- ===================== -->
   <section class="section" id="citation">
     <div class="kicker">Citation</div>
     <h2>BibTeX</h2>
 
     <div class="code-card">
-      <div class="bar"><span>BibTeX</span><button class="copy" data-copy="#bibtex">Copy</button></div>
+      <div class="bar">
+        <span>BibTeX</span>
+        <button class="copy" data-copy="#bibtex">Copy</button>
+      </div>
       <pre><code id="bibtex">@article{prottasha2025monkeyjump,
   title={MoE-Style PEFT for Efficient Multi-Task Learning},
   author={Prottasha, Nusrat Jahan and Kowsher, Md and Yu, Chun-Nam and Chen, Chen and Garibay, Ozlem},
@@ -578,5 +494,6 @@ init_router_centers(
 
 </body>
 </html>
+
 
 
