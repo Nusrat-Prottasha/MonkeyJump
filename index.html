@@ -1,1 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="Monkey Jump: MoE-Style PEFT for Efficient Multi-Task Learning" />
+  <title>Monkey Jump — Project Website</title>
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.08);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 18px 55px rgba(0,0,0,0.35);
+      --accent: #7dd3fc;
+      --accent2: #a78bfa;
+      --good: #34d399;
+      --warn: #fbbf24;
+      --danger: #fb7185;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 5%, rgba(125,211,252,0.22), transparent 50%),
+        radial-gradient(1000px 600px at 85% 10%, rgba(167,139,250,0.20), transparent 50%),
+        radial-gradient(900px 700px at 70% 75%, rgba(52,211,153,0.10), transparent 55%),
+        linear-gradient(180deg, #050816 0%, #0b1020 55%, #070a14 100%);
+      overflow-x:hidden;
+    }
+
+    a{ color: inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 26px 0 70px;
+    }
+
+    /* Top nav */
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      white-space: nowrap;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(45deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(125,211,252,0.15);
+    }
+    .navlinks{
+      display:flex; gap: 14px; flex-wrap: wrap; justify-content:flex-end;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .navlinks a{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .navlinks a:hover{
+      border-color: var(--border);
+      background: rgba(255,255,255,0.05);
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 22px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(800px 400px at 20% 0%, rgba(125,211,252,0.18), transparent 60%),
+        radial-gradient(700px 400px at 90% 20%, rgba(167,139,250,0.15), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      padding: 34px 26px 26px;
+      display:grid;
+      gap: 16px;
+      justify-items:center;
+      text-align:center;
+    }
+    .hero img.logo{
+      width:min(420px, 90%);
+      height:auto;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,0.35));
+    }
+    h1{
+      margin: 4px 0 0;
+      font-size: clamp(26px, 3.2vw, 40px);
+      line-height: 1.15;
+      letter-spacing: 0.2px;
+    }
+    .subtitle{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: clamp(14px, 1.6vw, 16px);
+      max-width: 860px;
+    }
+
+    .btns{
+      margin-top: 10px;
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration:none !important;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.20);
+    }
+    .btn img{ height:18px; width:auto; }
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(125,211,252,0.22), rgba(167,139,250,0.22));
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .hero-figure{
+      margin-top: 10px;
+      width: min(980px, 100%);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.15);
+      overflow:hidden;
+    }
+    .hero-figure img{
+      display:block;
+      width: 100%;
+      height:auto;
+    }
+
+    /* Sections */
+    section{
+      margin-top: 26px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 14px 38px rgba(0,0,0,0.22);
+      overflow:hidden;
+    }
+    .sec-head{
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      display:flex; align-items:center; justify-content:space-between; gap: 12px;
+    }
+    .sec-head h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:0.2px;
+    }
+    .pill{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.12);
+      white-space: nowrap;
+    }
+    .sec-body{
+      padding: 16px 18px 18px;
+      color: var(--text);
+    }
+    .sec-body p{ margin: 10px 0; color: var(--muted); line-height: 1.65; }
+    .sec-body ul{ margin: 10px 0 0 18px; color: var(--muted); line-height: 1.65; }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .card h3{
+      margin:0 0 6px;
+      font-size: 15px;
+    }
+    .card p{ margin:0; font-size: 14px; }
+
+    .kpi{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top: 12px;
+    }
+    .kpi span{
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.12);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    pre{
+      margin: 12px 0 0;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.22);
+      overflow:auto;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.88);
+    }
+    code{ font-family: var(--mono); }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      overflow:hidden;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.12);
+    }
+    th, td{
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align:left;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    th{
+      color: rgba(255,255,255,0.90);
+      font-weight: 700;
+      background: rgba(255,255,255,0.06);
+    }
+    tr:last-child td{ border-bottom:none; }
+
+    .figure{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow:hidden;
+      background: rgba(0,0,0,0.14);
+    }
+    .figure img{ width:100%; height:auto; display:block; }
+    .caption{
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){
+      .two-col{ grid-template-columns: 1fr; }
+      .nav{ border-radius: 18px; }
+    }
+
+    .foot{
+      margin-top: 26px;
+      color: var(--muted);
+      text-align:center;
+      font-size: 13px;
+    }
+
+    .small-muted{ color: var(--muted); font-size: 13px; }
+    .tagline{
+      display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+      margin-top: 10px;
+    }
+    .tag{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* optional anchor offset for sticky nav */
+    .anchor{ scroll-margin-top: 90px; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Sticky Nav -->
+    <div class="nav">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Monkey Jump</span>
+      </div>
+      <div class="navlinks">
+        <a href="#abstract">Abstract</a>
+        <a href="#features">Features</a>
+        <a href="#install">Install</a>
+        <a href="#quickstart">Quick Start</a>
+        <a href="#theory">Theory</a>
+        <a href="#experiments">Experiments</a>
+        <a href="#ablations">Ablations</a>
+        <a href="#citation">Citation</a>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-inner">
+        <img class="logo" src="assets/Money_Jump.png" alt="Monkey Jump Logo" />
+
+        <h1>Monkey Jump : MoE-Style PEFT for Efficient Multi-Task Learning</h1>
+        <div class="subtitle">
+          MoE-style specialization for PEFT <b>without adding trainable routers or expert parameters</b>.
+          Gradient-free routing via <b>k-means</b> with <b>EMA-updated centers</b>.
+        </div>
+
+        <div class="btns">
+          <!-- Fill your website/arxiv links below -->
+          <a class="btn primary" href="#" target="_blank" rel="noopener">
+            <img src="assets/web.png" alt="Website icon" />
+            Project Website
+          </a>
+          <a class="btn" href="https://github.com/Nusrat-Prottasha/MonkeyJump" target="_blank" rel="noopener">
+            <img src="assets/github.png" alt="GitHub icon" />
+            GitHub
+          </a>
+          <a class="btn" href="#" target="_blank" rel="noopener">
+            <img src="assets/arxiv.png" alt="arXiv icon" />
+            arXiv Paper
+          </a>
+        </div>
+
+        <div class="tagline">
+          <span class="tag">🔀 Router-free MoE</span>
+          <span class="tag">🧠 Token-wise routing</span>
+          <span class="tag">💾 Up to 48% memory savings</span>
+          <span class="tag">⚡ 1.5–2× faster training</span>
+        </div>
+
+        <div class="hero-figure">
+          <img src="assets/method.png" alt="Monkey Jump method overview" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Abstract -->
+    <section id="abstract" class="anchor">
+      <div class="sec-head">
+        <h2>🧠 Abstract</h2>
+        <span class="pill">MoE-style PEFT without extra params</span>
+      </div>
+      <div class="sec-body">
+        <p>
+          Mixture-of-experts (MoE) variants of parameter-efficient fine-tuning (PEFT) enable per-token specialization,
+          but they introduce <b>additional trainable routers and expert parameters</b>, increasing memory and training costs.
+          This undermines the core goal of <b>parameter-efficient fine-tuning</b>.
+        </p>
+
+        <p>
+          We propose <b>Monkey Jump (MJ)</b> — named for the selective activation pattern: adapters “jump” on for some
+          projections and off for others. MJ brings MoE-style specialization to PEFT <b>without adding extra trainable parameters</b>.
+          Instead, MJ reuses the <b>PEFT adapters already present</b> in each Transformer block (e.g., query, key, value, up, down)
+          as <b>implicit experts</b>, and routes tokens among them using <b>k-means clustering</b> with <b>EMA-updated centers</b>
+          (no gradients, no learned parameters).
+        </p>
+
+        <div class="kpi">
+          <span>📝 14 Text datasets</span>
+          <span>🖼️ 14 Image datasets</span>
+          <span>🎬 19 Video datasets</span>
+          <span>🧩 Architecture-agnostic</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="anchor">
+      <div class="sec-head">
+        <h2>🚀 Features</h2>
+        <span class="pill">Fast • Sparse • Gradient-free</span>
+      </div>
+      <div class="sec-body">
+        <div class="two-col">
+          <div class="card">
+            <h3>What Monkey Jump adds</h3>
+            <ul>
+              <li>🔀 MoE-style routing without any trainable parameters</li>
+              <li>🧠 Token-wise and sentence-wise clustering-based routing</li>
+              <li>🧪 Gradient-free token routing via k-means + EMA</li>
+              <li>⚡ 1.5–2× faster training and inference</li>
+              <li>💾 Up to 48% GPU memory savings</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Compatibility</h3>
+            <ul>
+              <li>🔧 Works with LoRA, AdaLoRA, LoRA-FA, Propulsion</li>
+              <li>🧩 Adapter-based PEFT methods</li>
+              <li>✅ Uses existing per-projection adapters as implicit experts</li>
+              <li>🎯 Top-k sparse activation per token</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation -->
+    <section id="install" class="anchor">
+      <div class="sec-head">
+        <h2>⚙️ Installation</h2>
+        <span class="pill">pip / conda friendly</span>
+      </div>
+      <div class="sec-body">
+        <pre><code>git clone https://github.com/yourusername/MonkeyJump.git
+cd MonkeyJump
+pip install torch torchvision torchaudio
+pip install transformers accelerate datasets peft
+pip install scikit-learn tqdm numpy pandas</code></pre>
+        <p class="small-muted">Tip: Replace <code>yourusername</code> with your GitHub username.</p>
+      </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section id="quickstart" class="anchor">
+      <div class="sec-head">
+        <h2>💻 Quick Start</h2>
+        <span class="pill">Minimal integration</span>
+      </div>
+      <div class="sec-body">
+        <pre><code>from transformers import AutoModelForCausalLM
+from src.MJLoRA import apply_monkeyjump
+
+model = AutoModelForCausalLM.from_pretrained("model_name")
+model = apply_monkeyjump(
+    model,
+    blocks={"LlamaDecoderLayer": list(range(32))},
+    linears=["q_proj", "k_proj", "v_proj", "o_proj"],
+    shared_expert=["up_proj", "down_proj"],
+    rank=2,
+    alpha=16.0,
+    temperature=1.0,
+    ema_momentum=0.2,
+    top_k=2,
+    rep_mode="token",
+)</code></pre>
+
+        <div class="card" style="margin-top:14px;">
+          <h3>Initialize Router (k-means centers)</h3>
+          <pre><code>from src.kmneas import init_router_centers
+
+init_router_centers(
+    trainer,
+    subset_size=4000,
+    kmeans_iters=15,
+    rep_mode="token",
+)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Routing Modes -->
+    <section id="routing" class="anchor">
+      <div class="sec-head">
+        <h2>🧪 Routing Modes</h2>
+        <span class="pill">Token / Sequence routing</span>
+      </div>
+      <div class="sec-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Mode</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>token</code></td><td>Per-token routing</td></tr>
+            <tr><td><code>last</code></td><td>Uses last token only</td></tr>
+            <tr><td><code>mean</code></td><td>Mean of all tokens</td></tr>
+            <tr><td><code>prompt_end</code></td><td>Token at prompt boundary</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Efficiency -->
+    <section id="efficiency" class="anchor">
+      <div class="sec-head">
+        <h2>📈 Efficiency Analysis</h2>
+        <span class="pill">H100 • Batch 8 • GA 2</span>
+      </div>
+      <div class="sec-body">
+        <div class="figure">
+          <img src="assets/effi.png" alt="Efficiency chart" />
+          <div class="caption">
+            Comparison of MJ variants and MoE-PEFT baselines across key efficiency metrics
+            (GPU: NVIDIA H100 80GB, PyTorch + HF Transformers, batch size 8, grad accumulation 2).
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top:14px;">
+          <div class="card">
+            <h3>🔢 Parameter Efficiency</h3>
+            <table>
+              <thead><tr><th>Method</th><th>Params (K)</th></tr></thead>
+              <tbody>
+                <tr><td>MJ-Propulsion</td><td><b>49</b></td></tr>
+                <tr><td>MixLoRA</td><td>364</td></tr>
+                <tr><td>HydraLoRA</td><td>909</td></tr>
+                <tr><td>MoELoRA</td><td>1,425</td></tr>
+                <tr><td>MJ-LoRAFA</td><td>98</td></tr>
+                <tr><td>MJ-LoRA</td><td>270</td></tr>
+              </tbody>
+            </table>
+            <p class="small-muted">
+              Total model size remains nearly identical (~1,705MB) because MJ reuses existing adapters instead of adding new experts.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>💾 Memory & ⚡ Speed</h3>
+            <table>
+              <thead><tr><th>Method</th><th>Peak Memory (GB)</th></tr></thead>
+              <tbody>
+                <tr><td>MJ-Propulsion</td><td><b>12.0</b></td></tr>
+                <tr><td>MoEAdaLoRA</td><td>23.2</td></tr>
+                <tr><td>MoELoRA</td><td>22.8</td></tr>
+                <tr><td>MJ-AdaLoRA</td><td>15.4</td></tr>
+              </tbody>
+            </table>
+            <p class="small-muted">
+              MJ achieves up to <b>48%</b> memory savings via top-k sparse routing, and improves training/inference throughput.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Theory -->
+    <section id="theory" class="anchor">
+      <div class="sec-head">
+        <h2>🔬 Theoretical Insights</h2>
+        <span class="pill">Expressivity + Information theory</span>
+      </div>
+      <div class="sec-body">
+        <div class="two-col">
+          <div class="card">
+            <h3>1) Token-wise routing increases expressivity</h3>
+            <p>
+              Standard PEFT sums adapter updates, which can cause cancellation:
+            </p>
+            <pre><code>U^{PEFT} = ( Σ_{e=1..E} ΔW_e ) H</code></pre>
+            <p>
+              MJ routes tokens selectively to adapters:
+            </p>
+            <pre><code>U^{MJ} = [ ΔW_1 H_1  ...  ΔW_E H_E ]
+rank(U^{MJ}) ≥ rank(U^{PEFT})</code></pre>
+          </div>
+
+          <div class="card">
+            <h3>2) Last-token routing is optimal (sequence-wise)</h3>
+            <p>
+              In causal Transformers, the last token representation has attended to the full sequence:
+            </p>
+            <pre><code>I(h_T; X) ≥ I(h_t; X)   for all t &lt; T
+I(h_T; X) ≥ I(mean(h); X)</code></pre>
+          </div>
+        </div>
+
+        <p class="small-muted" style="margin-top:12px;">
+          Note: This page shows equations as plain text so it works on GitHub Pages without extra libraries.
+          If you want real LaTeX rendering, tell me and I’ll add MathJax.
+        </p>
+      </div>
+    </section>
+
+    <!-- Experiments -->
+    <section id="experiments" class="anchor">
+      <div class="sec-head">
+        <h2>🧪 Experiments</h2>
+        <span class="pill">47 benchmarks • 3 modalities</span>
+      </div>
+      <div class="sec-body">
+        <p>
+          We evaluate <b>Monkey Jump (MJ)</b> on 47 multi-task benchmarks:
+          📝 <b>14 Text</b>, 🖼️ <b>14 Image</b>, 🎬 <b>19 Video</b>.
+        </p>
+
+        <div class="card">
+          <h3>⚙️ Setup</h3>
+          <ul>
+            <li><b>Text</b>: LLaMA-3-8B-Instruct</li>
+            <li><b>Image/Video</b>: LLaVA-OneVision-Qwen2-7B</li>
+            <li>PEFT / MoE-PEFT applied to attention projections (Q, K, V, O) and FFN gate</li>
+            <li>MJ variants: <code>MJLoRA</code>, <code>MJLoRAFA</code>, <code>MJAdaLoRA</code>, <code>MJPropulsion</code></li>
+          </ul>
+        </div>
+
+        <div class="figure">
+          <img src="assets/Experiment Average.png" alt="MJ benchmark results" />
+          <div class="caption">
+            Average performance across task families (mean ± std over 5 runs).
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3>🔍 Key Takeaways</h3>
+          <ul>
+            <li>✅ Comparable or better performance than MoE-PEFT with <b>7–29× fewer trainable parameters</b></li>
+            <li>🏆 <b>MJLoRA</b> ties or outperforms HydraLoRA and MoA on GLUE and QA tasks</li>
+            <li>🖼️ <b>MJAdaLoRA</b> leads image classification and action-object tasks</li>
+            <li>⚡ <b>MJPropulsion</b> is strong on motion and high-level video reasoning</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ablations -->
+    <section id="ablations" class="anchor">
+      <div class="sec-head">
+        <h2>🧪 Ablation Study</h2>
+        <span class="pill">Visualization + topics</span>
+      </div>
+      <div class="sec-body">
+        <div class="figure">
+          <img src="assets/MJ_24layers.jpg" alt="Layer-wise clustering visualization" />
+          <div class="caption">
+            Layer-wise cluster visualization (t-SNE projection) colored by assigned expert (E0–E4).
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3>📊 Ablation Study Topics</h3>
+          <ul>
+            <li>Initialization Method</li>
+            <li>K-Means Sample Size</li>
+            <li>Cluster Update Coverage</li>
+            <li>Router Count</li>
+            <li>Routing Granularity</li>
+            <li>Similarity Function</li>
+            <li>Routing Temperature</li>
+            <li>EMA Smoothing Factor</li>
+            <li>Update Schedule</li>
+            <li>Projection Specialization</li>
+            <li>Linear Probing for Last-Token Routing</li>
+            <li>Expert Permutation Analysis</li>
+            <li>Shared Expert Selection</li>
+            <li>Rank Sensitivity</li>
+            <li>Expert Combination Analysis</li>
+            <li>Impact of K-Means Initialization</li>
+            <li>Expert Usage and Self-Balancing</li>
+            <li>Complexity and Parameter Analysis</li>
+          </ul>
+          <p class="small-muted">For full details, please refer to the paper.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Citation -->
+    <section id="citation" class="anchor">
+      <div class="sec-head">
+        <h2>📜 Citation</h2>
+        <span class="pill">BibTeX</span>
+      </div>
+      <div class="sec-body">
+        <pre><code>@article{prottasha2025monkeyjump,
+  title={MoE-Style PEFT for Efficient Multi-Task Learning},
+  author={Prottasha, Nusrat Jahan and Kowsher, Md and Yu, Chun-Nam and Chen, Chen and Garibay, Ozlem},
+  journal={arXiv preprint arXiv:2501.xxxxx},
+  year={2025}
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- License -->
+    <section id="license" class="anchor">
+      <div class="sec-head">
+        <h2>📝 License</h2>
+        <span class="pill">MIT</span>
+      </div>
+      <div class="sec-body">
+        <p>MIT License</p>
+      </div>
+    </section>
+
+    <div class="foot">
+      © <span id="year"></span> Monkey Jump • Built for GitHub Pages
+    </div>
+  </div>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
 
