@@ -10,6 +10,32 @@ Monkey Jump avoids these costs by treating the PEFT adapters already present in 
 
 We provide theoretical analysis showing that token-wise routing improves expressivity by avoiding cancellation effects found in uniformly applied adapters. In comprehensive multi-task experiments across 14 text, 14 image, and 19 video benchmarks, Monkey Jump achieves competitive performance with MoE-PEFT methods while using 7–29× fewer trainable parameters, up to 48% lower memory, and 1.5–2× faster training. Monkey Jump is architecture-agnostic and can be applied to any adapter-based PEFT method.
 
+
+## 🧠 Abstract
+
+Mixture-of-experts (MoE) variants of parameter-efficient fine-tuning (PEFT) enable per-token specialization, but they introduce **additional trainable routers and expert parameters**, increasing memory and training costs. This undermines the core goal of **parameter-efficient fine-tuning**.
+
+We propose **Monkey Jump (MJ)** — named for the selective activation pattern: adapters *"jump"* on for some projections and off for others.
+
+MJ brings MoE-style specialization to PEFT **without adding extra trainable parameters** for experts or routers. Instead of introducing new adapter experts, MJ reuses the **PEFT adapters already present** in each Transformer block (e.g., query, key, value, up, and down projections) as **implicit experts**, and routes tokens among them using:
+
+- 🔍 **$k$-means clustering** with **EMA-updated centers**
+- ❌ **No gradients, no learned parameters**
+
+### 📐 Theory Insight
+
+We theoretically show that **token-wise routing increases expressivity**, outperforming shared adapters by **avoiding cancellation effects**.
+
+### 🧪 Experimental Results
+
+In multi-task benchmarks:
+- 📝 **14 Text**, 🖼️ **14 Image**, 🎬 **19 Video** datasets
+- MJ matches or outperforms MoE-PEFT methods while using:
+  - **7–29× fewer trainable parameters**
+  - **Up to 48% lower GPU memory**
+  - **1.5–2× faster training**
+
+> 🧩 Monkey Jump is **architecture-agnostic** and can be applied to any adapter-based PEFT method.
 ---
 
 
