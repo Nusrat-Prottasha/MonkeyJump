@@ -293,7 +293,6 @@ For further insights (e.g., initialization, routing sparsity, adapter sharing), 
   year={2025}
 }
 ```
-
 ---
 
 ## 📝 License
