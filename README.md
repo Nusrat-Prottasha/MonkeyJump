@@ -259,7 +259,7 @@ We evaluate **Monkey Jump (MJ)** on 47 multi-task benchmarks across three modali
 ### 📊 Overall Results
 
 <p align="center">
-  <img src="assets/exp_table.png" alt="MJ Benchmark Results" width="850"/>
+  <img src="assets/Experiment Average.png" alt="MJ Benchmark Results" width="850"/>
 </p>
 
 Table: Average performance across task families (mean ± std over 5 runs).  
@@ -311,18 +311,4 @@ MIT License
 
 ---
 
-## 📬 Contact
 
-- GitHub: [Nusrat-Prottasha/MonkeyJump](https://github.com/Nusrat-Prottasha/MonkeyJump)
-- Email: your.email@university.edu
-
----
-
-**You've experienced ScholarGPT — now meet what's next.**  
-*Scholar Deep Research Agent* elevates your research game with:  
-🔍 350M+ trusted papers from top academic publishers, updated hourly.  
-🧠 Advanced multiple AI models dig through millions of sources for pinpoint insights, fast.  
-📝 Auto-generated highlights, smart notes, and visual reports  
-📁 All saved directly to your AI-powered knowledge base  
-ScholarGPT helped you search. Now, transform how you think.  
-[Explore Scholar Deep Research](https://bit.ly/43rXgSx)
