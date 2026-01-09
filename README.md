@@ -221,9 +221,6 @@ I(h_T; X) \geq I(h_t; X) \quad \forall t < T
 ```math
 I(h_T; X) \geq I(\bar{h}; X), \quad \text{where } \bar{h} = \frac{1}{T} \sum_{t=1}^T h_t
 ```
-
-> ✅ **Conclusion**: Last-token routing retains the most semantic content and is superior to mean/max pooling for causal models.
-
 ---
 
 These results show that MJ delivers both **efficient** and **expressive** token adaptation, grounded in provable design choices.
