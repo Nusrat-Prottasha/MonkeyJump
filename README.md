@@ -278,7 +278,27 @@ To better understand how Monkey Jump routes tokens at different depths, we visua
 - Routing centroids consistently stay near cluster centers, showing stable adaptation from k-means and EMA.
 
 > 🧪 **Note**: This is just one of several ablation studies we present in our paper.
-For further insights (e.g., initialization, routing sparsity, adapter sharing), please refer to the full paper.
+For further insights ### 📊 Ablation Study Topics
+
+- Initialization Method
+- $K$-Means Sample Size
+- Cluster Update Coverage
+- Router Count
+- Routing Granularity
+- Similarity Function
+- Routing Temperature
+- EMA Smoothing Factor
+- Update Schedule
+- Projection Specialization
+- Linear Probing for Last-Token Routing
+- Expert Permutation Analysis
+- Shared Expert Selection
+- Rank Sensitivity
+- Expert Combination Analysis
+- Impact of $K$-Means Initialization
+- Expert Usage and Self-Balancing
+- Complexity and Parameter Analysis
+, please refer to the full paper.
 
 ## 📜 Citation
 
