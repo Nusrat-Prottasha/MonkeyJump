@@ -1,4 +1,4 @@
-<p align="center"> <img src="assets/Money_Jump.png" alt="Monkey Jump Logo" width="400"/> </p> <h1 align="center"> Monkey Jump : MoE-Style PEFT for Efficient Multi-Task Learning</h1> <p align="center"> <a href="https://nusrat-prottasha.github.io/MonkeyJump/" target="_blank"> <img src="assets/web.png" alt="Project Website" height="36"> </a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/Nusrat-Prottasha/MonkeyJump" target="_blank"> <img src="assets/github.png" alt="GitHub" height="36"> </a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="#" target="_blank"> <img src="assets/arxiv.png" alt="arXiv Paper" height="36"> </a> </p>
+<p align="center"> <img src="assets/Money_Jump.png" alt="Monkey Jump Logo" width="400"/> </p> <h1 align="center"> Monkey Jump : MoE-Style PEFT for Efficient Multi-Task Learning</h1> <p align="center"> <a href="https://nusrat-prottasha.github.io/MonkeyJump/" target="_blank"> <img src="assets/web.png" alt="Project Website" height="36"> </a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/Nusrat-Prottasha/MonkeyJump" target="_blank"> <img src="assets/github.png" alt="GitHub" height="36"> </a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://arxiv.org/abs/2601.06356v1" target="_blank"> <img src="assets/arxiv.png" alt="arXiv Paper" height="36"> </a> </p>
 <p align="center"> <img src="assets/method.png" alt="Monkey Jump Logo" width="900"/> </p>
 ---
 
@@ -304,10 +304,10 @@ For further insights ### 📊 Ablation Study Topics
 
 ```bibtex
 @article{prottasha2025monkeyjump,
-  title={MoE-Style PEFT for Efficient Multi-Task Learning},
+  title={Monkey Jump: MoE-Style PEFT for Efficient Multi-Task Learning},
   author={Prottasha, Nusrat Jahan and Kowsher, Md and Yu, Chun-Nam and Chen, Chen and Garibay, Ozlem},
-  journal={arXiv preprint arXiv:2501.xxxxx},
-  year={2025}
+  journal={arXiv preprint arXiv:2601.06356v1},
+  year={2026}
 }
 ```
 ---
